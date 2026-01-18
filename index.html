@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics & Data Analytics Portfolio</title>
+    <style>
+        /* ==================== RESET & BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent);
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            transition: 0.3s;
+        }
+
+        /* ==================== CONTAINER & SECTIONS ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        section .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-image {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            justify-self: end;
+        }
+
+        .hero-image svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .title {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content .statement {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+
+        /* ==================== STATISTICAL DECISION LOGIC ==================== */
+        .logic-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .logic-card {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .logic-card h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .logic-flow {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .logic-item {
+            background-color: rgba(59, 130, 246, 0.1);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .logic-item .condition {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .logic-item .result {
+            color: var(--text-secondary);
+        }
+
+        /* ==================== TOOLS SECTION ==================== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-badge {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .tool-badge:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        #contact {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+        }
+
+        .closing-statement {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                justify-self: center;
+                max-width: 400px;
+                order: -1;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .title {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .skills-grid,
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                grid-template-columns: 50px 1fr;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            nav .container {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero-image {
+                max-width: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav>
+        <div class="container">
+            <div class="logo">SA</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#tools" class="nav-link">Tools</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <h1>Statistical Analyst</h1>
+                    <p class="title">Statistics & Data Analytics Portfolio</p>
+                    <p class="statement">
+                        I assist students and researchers by applying appropriate statistical methods, 
+                        validating analyses, and translating data into defensible insights. My work 
+                        focuses on methodological rigor, assumption verification, and clear interpretation 
+                        of results for academic and research contexts.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background circle -->
+                        <circle cx="250" cy="250" r="200" fill="rgba(59, 130, 246, 0.1)" />
+                        
+                        <!-- Statistical chart background -->
+                        <rect x="100" y="150" width="300" height="250" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                        
+                        <!-- Bar chart -->
+                        <rect x="130" y="240" width="40" height="120" fill="#3b82f6" opacity="0.8"/>
+                        <rect x="190" y="200" width="40" height="160" fill="#60a5fa" opacity="0.8"/>
+                        <rect x="250" y="180" width="40" height="180" fill="#3b82f6" opacity="0.8"/>
+                        <rect x="310" y="220" width="40" height="140" fill="#60a5fa" opacity="0.8"/>
+                        
+                        <!-- Grid lines -->
+                        <line x1="120" y1="360" x2="370" y2="360" stroke="#334155" stroke-width="1"/>
+                        <line x1="120" y1="300" x2="370" y2="300" stroke="#334155" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="120" y1="240" x2="370" y2="240" stroke="#334155" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="120" y1="180" x2="370" y2="180" stroke="#334155" stroke-width="1" stroke-dasharray="5,5"/>
+                        
+                        <!-- Line chart overlay -->
+                        <polyline points="130,280 190,240 250,200 310,250 370,230" 
+                                  fill="none" stroke="#93c5fd" stroke-width="3" opacity="0.7"/>
+                        
+                        <!-- Data points -->
+                        <circle cx="130" cy="280" r="5" fill="#93c5fd"/>
+                        <circle cx="190" cy="240" r="5" fill="#93c5fd"/>
+                        <circle cx="250" cy="200" r="5" fill="#93c5fd"/>
+                        <circle cx="310" cy="250" r="5" fill="#93c5fd"/>
+                        <circle cx="370" cy="230" r="5" fill="#93c5fd"/>
+                        
+                        <!-- Statistical symbols -->
+                        <text x="130" y="120" font-family="Arial, sans-serif" font-size="24" fill="#3b82f6" font-weight="bold">σ</text>
+                        <text x="320" y="120" font-family="Arial, sans-serif" font-size="24" fill="#60a5fa" font-weight="bold">μ</text>
+                        <text x="220" y="440" font-family="Arial, sans-serif" font-size="20" fill="#94a3b8">p < 0.05</text>
+                        
+                        <!-- Normal distribution curve (small) -->
+                        <path d="M 340 90 Q 360 70, 380 90" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                        <path d="M 340 90 Q 360 60, 380 90" fill="rgba(59, 130, 246, 0.2)"/>
+                        
+                        <!-- Decorative elements -->
+                        <circle cx="430" cy="180" r="30" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.3"/>
+                        <circle cx="70" cy="340" r="20" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES OFFERED ==================== -->
+    <section id="services">
+        <div class="container">
+            <h2>Services Offered</h2>
+            <p class="subtitle">Professional statistical support tailored to your research needs</p>
+            
+            <div class="logic-container">
+
+                <div class="logic-card">
+                    <h3>🔍 Reliability Testing</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+                        Assessment of measurement instruments using Cronbach's alpha, test-retest reliability, 
+                        inter-rater reliability, and validity testing. Essential for survey-based research 
+                        and instrument development.
+                    </p>
+                </div>
+
+                <div class="logic-card">
+                    <h3>📊 Statistical Computations / Data Analysis</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+                        Complete statistical analysis including assumption checking, appropriate test selection, 
+                        computation, and interpretation. Deliverables include detailed output files and 
+                        results summary suitable for thesis or publication.
+                    </p>
+                </div>
+
+                <div class="logic-card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.05) 100%); border-left-color: #60a5fa;">
+                    <h3 style="color: #60a5fa;">⚡ RUSH SERVICES AVAILABLE</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+                        Expedited analysis available for urgent deadlines. Rush turnaround ensures you meet 
+                        your submission or defense schedule without compromising analytical rigor.
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 2.5rem; padding: 2rem; background-color: rgba(59, 130, 246, 0.1); border-radius: 12px;">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.4rem;">Ready to Get Started?</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Message us for inquiries about pricing, timelines, and service details.</p>
+                    <a href="#contact" class="btn btn-primary">Contact for Inquiries</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TOOLS SECTION ==================== -->
+    <section id="tools">
+        <div class="container">
+            <h2>Tools & Technologies</h2>
+            <p class="subtitle">Software proficiency for statistical analysis</p>
+            
+            <div class="tools-grid">
+                <div class="tool-badge">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Microsoft Excel</div>
+                </div>
+                <div class="tool-badge">
+                    <div class="tool-icon">📈</div>
+                    <div class="tool-name">SPSS</div>
+                </div>
+                <div class="tool-badge">
+                    <div class="tool-icon">🐍</div>
+                    <div class="tool-name">Python</div>
+                </div>
+                <div class="tool-badge">
+                    <div class="tool-icon">📓</div>
+                    <div class="tool-name">Jupyter Notebook</div>
+                </div>
+                <div class="tool-badge">
+                    <div class="tool-icon">🔢</div>
+                    <div class="tool-name">pandas</div>
+                </div>
+                <div class="tool-badge">
+                    <div class="tool-icon">📐</div>
+                    <div class="tool-name">SciPy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Get in Touch</h2>
+                <p class="subtitle">Available for statistical consultation and research support</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com" class="contact-link">
+                        <div class="contact-icon">✉️</div>
+                        <div>Email</div>
+                    </a>
+                    <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+                        <div class="contact-icon">💻</div>
+                        <div>GitHub</div>
+                    </a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">
+                        <div class="contact-icon">🔗</div>
+                        <div>LinkedIn</div>
+                    </a>
+                </div>
+
+                <p class="closing-statement">
+                    I provide statistical computations and data analysis support for theses and academic research. I assist in selecting appropriate statistical tests, validating analytical approaches, and interpreting results while utilizing Python and other statistical software to ensure accurate and efficient outcomes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p>&copy; 2026 Statistical Analytics Portfolio. Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== MOBILE MENU TOGGLE ====================
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ==================== SMOOTH SCROLLING ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ==================== ACTIVE NAV HIGHLIGHTING ====================
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop && 
+                    window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // ==================== SECTION REVEAL ON SCROLL ====================
+        function revealSections() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        // ==================== SCROLL EVENT LISTENERS ====================
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            // Debounce scroll events for performance
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                updateActiveNav();
+                revealSections();
+            }, 10);
+        });
+
+        // ==================== INITIAL REVEAL ====================
+        // Reveal sections that are already in view on page load
+        window.addEventListener('load', () => {
+            revealSections();
+            updateActiveNav();
+        });
+
+        // Also check on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            revealSections();
+            updateActiveNav();
+        });
+    </script>
+</body>
+</html>
